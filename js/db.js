@@ -6,7 +6,7 @@ define( ['underscore'], function ( _ ) {
 	return {
 		database: null,
 
-		open: function () {
+		open: function ( callback, context ) {
 			var self = this;
 			window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 			window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
@@ -21,6 +21,9 @@ define( ['underscore'], function ( _ ) {
 			request.onsuccess = function ( e ) {
 				self.database = e.target.result;
 				console.log( 'database opened' );
+				if ( callback && typeof callback == 'function' ) {
+					callback.apply( context );
+				}
 			};
 			request.onerror = function () {
 				throw new Error( 'Can\'t open indexedDB' );
@@ -54,8 +57,31 @@ define( ['underscore'], function ( _ ) {
 			console.log( 'getNote() called' );
 		},
 
-		getAllNotes: function() {
+		getAllNotes: function () {
 			console.log( 'getAllNotes() called' );
+
+			return [
+				{
+					title    : 'sample note 1',
+					text     : 'sample text 1',
+					timestamp: new Date().getTime()
+				},
+				{
+					title    : 'sample note 2',
+					text     : 'sample text 2',
+					timestamp: new Date().getTime()
+				},
+				{
+					title    : 'sample note 3',
+					text     : 'sample text 3',
+					timestamp: new Date().getTime()
+				},
+				{
+					title    : 'sample note 4',
+					text     : 'sample text 4',
+					timestamp: new Date().getTime()
+				}
+			]
 		}
 
 	};

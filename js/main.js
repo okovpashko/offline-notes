@@ -6,8 +6,8 @@ require.config( {
 		backbone  : 'lib/backbone-min'
 	},
 	shim   : {
-		'backbone': {
-			deps: ['underscore', 'jquery'],
+		'backbone'  : {
+			deps   : ['underscore', 'jquery'],
 			exports: 'Backbone'
 		},
 		'underscore': {
@@ -18,6 +18,6 @@ require.config( {
 
 window.NOTES = window.NOTES || {};
 
-require(['router'], function( NotesRouter ) {
-	NOTES.router = new NotesRouter();
-});
+require( ['router'], function ( NotesRouter ) {
+	NOTES.app = new NotesRouter();
+} );
